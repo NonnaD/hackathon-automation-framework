@@ -1,5 +1,7 @@
 package app.hackathon.test.helpers;
 
+import static com.sun.xml.internal.ws.spi.db.BindingContextFactory.LOGGER;
+
 import com.sun.tools.internal.ws.wsdl.document.soap.SOAPUse;
 import java.util.Properties;
 import org.openqa.selenium.WebDriver;
@@ -35,7 +37,7 @@ public class EnvironmentSetUp {
   }
 
   public void setUpLocalEnvironment(){
-    String browser = this.configProperties.getProperty("browser.chrome");
+    String browser = this.configProperties.getProperty("browser");
     if(browser.equals("chrome")){
       this.setChromeDriver();
     }else if(browser.equals("firefox")){
@@ -47,9 +49,10 @@ public class EnvironmentSetUp {
 
   public void setChromeDriver(){
     System.out.println("Chrome driver is running on local  ");
-   /* System.setProperty("webdriver.chrome.driver", System.getenv("webdriver.chrome.driver"));
+    System.setProperty("webdriver.chrome.driver", System.getenv("webdriver.chrome.driver"));
     webDriver = new ChromeDriver();
-    webDriver.get("https://demo.applitools.com/hackathonApp.html");*/
+    webDriver.get("https://demo.applitools.com/hackathonApp.html");
+    LOGGER.info("Chrome driver is running on local");
   }
 
 }

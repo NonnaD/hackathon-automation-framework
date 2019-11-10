@@ -13,33 +13,33 @@ import org.testng.annotations.BeforeSuite;
 public class Base {
   private static ThreadLocal<WebDriver> webDriver = new ThreadLocal();
   private EnvironmentSetUp setEnvironment;
-  //private Properties configProperties;
+  private Properties configProperties;
 
   public Properties initProperties(){
     Properties properties = new Properties();
+    FileInputStream dataPropInput;
     try {
-      FileInputStream dataPropInput = new FileInputStream("./src/main/resources/config.properties");
+      dataPropInput = new FileInputStream("./src/main/resources/config.properties");
+      properties.load(dataPropInput);
     }catch (IOException propertiesInit){
       LOGGER.info("IO exception : " + propertiesInit.getMessage());
     }
-    properties.load(dataPropInput);
     return properties;
   }
 
   @BeforeSuite(alwaysRun = true)
   public void startUp() {
-    Properties configProperties = this.initProperties();
+    this.configProperties = this.initProperties();
     System.out.println(configProperties.getProperty("browser"));
   //String testExecutionEnvironment = configProperties.getProperty("execution.environment");
   //String appType = configProperties.getProperty("application.type");
-    setEnvironment = new EnvironmentSetUp(this.configProperties);
+    setEnvironment = new EnvironmentSetUp(configProperties);
 
   }
 
   @AfterSuite(alwaysRun = true)
   public void tearDown(){
-    String appType = configProperties.getProperty("application.type", "");
-
+    String appType = this.configProperties.getProperty("application.type", "");
     try {
       if (appType.equals("WEB") && getWebDriver() != null) {
         getWebDriver().quit();
