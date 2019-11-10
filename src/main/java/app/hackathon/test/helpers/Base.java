@@ -30,11 +30,9 @@ public class Base {
   @BeforeSuite(alwaysRun = true)
   public void startUp() {
     this.configProperties = this.initProperties();
-    System.out.println(configProperties.getProperty("browser"));
-  //String testExecutionEnvironment = configProperties.getProperty("execution.environment");
-  //String appType = configProperties.getProperty("application.type");
     setEnvironment = new EnvironmentSetUp(configProperties);
-
+    webDriver.set(setEnvironment.getWebDriver());
+    getWebDriver().get(this.configProperties.getProperty("app.url"));
   }
 
   @AfterSuite(alwaysRun = true)
