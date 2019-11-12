@@ -6,6 +6,11 @@ public class Constants {
   private String usernameLabel = "Username";
   private String passwordLabel = "Password";
   private String rememberMeLabelText = "Remember Me";
+  private String customer = "CUSTOMER";
+
+  public String getCustomer() {
+    return customer;
+  }
 
   public String getRememberMeLabelText() {
     return rememberMeLabelText;

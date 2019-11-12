@@ -19,6 +19,7 @@ public class LoginPage extends PageDriver{
   private By twitterIcon = By.xpath("//img[@src='img/social-icons/twitter.png']");
   private By facebookIcon = By.xpath("//img[@src='img/social-icons/facebook.png']");
   private By linkedInIcon = By.xpath("//img[@src='img/social-icons/linkedin.png']");
+  private By warningMessage = By.xpath("//div[contains(@id,'random_id_')]");
 
   public LoginPage(WebDriver webDriver) {
     super(webDriver);
@@ -80,14 +81,19 @@ public class LoginPage extends PageDriver{
     return isElementDisplayed(signInButton);
   }
 
+  public void typeUsername(String value){
+    typeValueInField(usernameField, value);
+  }
 
+  public void typePassword(String value){
+    typeValueInField(passwordField, value);
+  }
 
+  public String getWarningMessage(){
+    return getElementText(warningMessage);
+  }
 
-
-
-
-
-
-
-
+  public void clickSignInButton(){
+    clickElement(signInButton);
+  }
 }

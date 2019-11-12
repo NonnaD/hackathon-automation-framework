@@ -28,4 +28,12 @@ public class PageDriver {
     return webDriver.findElements(by).get(elementNumber).getText();
   }
 
+  public void typeValueInField(By by, String value){
+    webDriver.findElement(by).sendKeys(value);
+  }
+
+  public void clickElement(By by){
+    webDriver.findElement(by).click();
+  }
+
 }
