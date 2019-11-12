@@ -24,10 +24,14 @@ public class Base {
     setEnvironment = new EnvironmentSetUp(configProperties);
   }
 
-  @AfterSuite(alwaysRun = true)
+  public void startUp() {
+    webDriver = setEnvironment.getWebDriver();
+    webDriver.get(this.configProperties.getProperty("app.url"));
+    logger.info(String.format("Navigate to %s", this.configProperties.getProperty("app.url")));
+  }
+
   public void tearDown() {
     String appType = this.configProperties.getProperty("application.type", "");
-    System.out.println(appType);
     try {
       if (appType.equals("web") && webDriver != null) {
         webDriver.quit();
@@ -40,12 +44,6 @@ public class Base {
     }
   }
 
-  public void startUp() {
-    webDriver = setEnvironment.getWebDriver();
-    webDriver.get(this.configProperties.getProperty("app.url"));
-    logger.info(String.format("Navigate to %s", this.configProperties.getProperty("app.url")));
-  }
-
   public Properties initProperties() {
     Properties properties = new Properties();
     FileInputStream dataPropInput;
@@ -56,5 +54,9 @@ public class Base {
       logger.info("IO exception : " + propertiesInit.getMessage());
     }
     return properties;
+  }
+
+  public static WebDriver getWebDriver(){
+    return webDriver;
   }
 }

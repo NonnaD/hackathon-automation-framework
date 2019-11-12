@@ -1,0 +1,93 @@
+package app.hackathon.test.pages;
+
+import app.hackathon.test.helpers.PageDriver;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+
+public class LoginPage extends PageDriver{
+
+  private By loginFormHeader = By.className("auth-header");
+  private By labelElement = By.xpath("//div[@class='form-group']/label");
+  private By logoImage = By.xpath("//img[@src='img/logo-big.png']");
+  private By usernameLogo = By.xpath("//div[@class='pre-icon os-icon os-icon-user-male-circle']");
+  private By passwordLogo = By.xpath("//div[@class='pre-icon os-icon os-icon-fingerprint']");
+  private By usernameField = By.id("username");
+  private By passwordField = By.id("password");
+  private By signInButton = By.id("log-in");
+  private By rememberMeCheckBox = By.xpath("//input[@class='form-check-input']");
+  private By rememberMeLabel = By.xpath("//label[@class='form-check-label']");
+  private By twitterIcon = By.xpath("//img[@src='img/social-icons/twitter.png']");
+  private By facebookIcon = By.xpath("//img[@src='img/social-icons/facebook.png']");
+  private By linkedInIcon = By.xpath("//img[@src='img/social-icons/linkedin.png']");
+
+  public LoginPage(WebDriver webDriver) {
+    super(webDriver);
+  }
+
+  public String getLoginFormHeader(){
+    return getElementText(loginFormHeader);
+  }
+
+  public String getRememberMeLabelText(){
+    return getElementText(rememberMeLabel);
+  }
+
+  public String getUsernameLabelText(){
+    return getNthElementText(labelElement, 0);
+  }
+
+  public String getPasswordLabelText(){
+    return getNthElementText(labelElement, 1);
+  }
+
+  public Boolean isLogoImageDisplayed(){
+    return isElementDisplayed(logoImage);
+  }
+
+  public Boolean isUsernameLogoDisplayed(){
+    return isElementDisplayed(usernameLogo);
+  }
+
+  public Boolean isPasswordLogoDisplayed(){
+    return isElementDisplayed(passwordLogo);
+  }
+
+  public Boolean isUsernameFieldDisplayed(){
+    return isElementDisplayed(usernameField);
+  }
+
+  public Boolean isPasswordFieldDisplayed(){
+    return isElementDisplayed(passwordField);
+  }
+
+  public Boolean isTwitterIconDisplayed(){
+    return isElementDisplayed(twitterIcon);
+  }
+
+  public Boolean isFacebookIconDisplayed(){
+    return isElementDisplayed(facebookIcon);
+  }
+
+  public Boolean isLinkedInIconDisplayed(){
+    return isElementDisplayed(linkedInIcon);
+  }
+
+  public Boolean isRememberMeCheckboxDisplayed(){
+    return isElementDisplayed(rememberMeCheckBox);
+  }
+
+  public Boolean isSignInDisplayed(){
+    return isElementDisplayed(signInButton);
+  }
+
+
+
+
+
+
+
+
+
+
+
+}

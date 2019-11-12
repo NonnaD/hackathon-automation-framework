@@ -12,10 +12,6 @@ public class EnvironmentSetUp {
   private Properties configProperties;
   private static final Logger logger = LogManager.getLogger(EnvironmentSetUp.class.getName());
 
-  public WebDriver getWebDriver() {
-    return this.webDriver;
-  }
-
   public EnvironmentSetUp(Properties configProperties) {
     this.configProperties = configProperties;
     String environment = this.configProperties.getProperty("execution.environment");
@@ -46,9 +42,12 @@ public class EnvironmentSetUp {
   }
 
   public void setChromeDriver() {
-    System.setProperty("webdriver.chrome.driver", System.getenv("webdriver.chrome.driver"));
+    System.setProperty("webdriver.chrome.driver", "/Users/nonna/Desktop/MyJavaMac/chromedriver");
     webDriver = new ChromeDriver();
-    logger.info("Chrome driver is running on local");
+    logger.info("Chrome driver is running on local machine");
   }
 
+  public WebDriver getWebDriver() {
+    return this.webDriver;
+  }
 }
