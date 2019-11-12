@@ -4,6 +4,9 @@ import app.hackathon.test.data.Constants;
 import app.hackathon.test.helpers.Base;
 import app.hackathon.test.pages.CustomerPage;
 import app.hackathon.test.pages.LoginPage;
+import java.util.Collections;
+import java.util.List;
+import java.util.concurrent.TimeUnit;
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 import org.testng.annotations.AfterTest;
@@ -78,5 +81,18 @@ public class TraditionalTests extends Base {
     } else {
       Assert.assertEquals(loginPage.getWarningMessage(), message);
     }
+  }
+
+  @Test(description = "Verify table sort functionality")
+  public void verifyTableSortFunctionality() {
+    loginPage.typeUsername("username");
+    loginPage.typePassword("password");
+    loginPage.clickSignInButton();
+    Assert.assertEquals(customerPage.getUserRole(), constants.getCustomer());
+    customerPage.clickTransactionAmount();
+    List<Double> actualTransactions = customerPage.getAllTransactions();
+    List<Double> sortedTransactions = customerPage.getAllTransactions();
+    sortedTransactions.sort(Collections.reverseOrder());
+    Assert.assertEquals(sortedTransactions, actualTransactions);
   }
 }
