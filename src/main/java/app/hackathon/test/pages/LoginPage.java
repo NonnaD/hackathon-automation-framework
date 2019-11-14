@@ -96,4 +96,10 @@ public class LoginPage extends PageDriver{
   public void clickSignInButton(){
     clickElement(signInButton);
   }
+
+  public void logIn(String username, String password){
+    this.typeUsername(username);
+    this.typePassword(password);
+    this.clickSignInButton();
+  }
 }

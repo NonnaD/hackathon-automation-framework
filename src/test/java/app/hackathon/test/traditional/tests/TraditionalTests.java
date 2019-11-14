@@ -6,9 +6,9 @@ import app.hackathon.test.pages.CustomerPage;
 import app.hackathon.test.pages.LoginPage;
 import java.util.Collections;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.DataProvider;
@@ -85,14 +85,22 @@ public class TraditionalTests extends Base {
 
   @Test(description = "Verify table sort functionality")
   public void verifyTableSortFunctionality() {
-    loginPage.typeUsername("username");
-    loginPage.typePassword("password");
-    loginPage.clickSignInButton();
+    loginPage.logIn("user","password");
     Assert.assertEquals(customerPage.getUserRole(), constants.getCustomer());
     customerPage.clickTransactionAmount();
     List<Double> actualTransactions = customerPage.getAllTransactions();
     List<Double> sortedTransactions = customerPage.getAllTransactions();
-    sortedTransactions.sort(Collections.reverseOrder());
+    Collections.sort(sortedTransactions);
     Assert.assertEquals(sortedTransactions, actualTransactions);
+  }
+
+  @Test(description = "Validate the bar chart and representing that data")
+  public void canvasChartTest() {
+    loginPage.logIn("user","password");
+    Assert.assertEquals(customerPage.getUserRole(), constants.getCustomer());
+    customerPage.clickCompareExpenses();
+    customerPage.isChartDisplayed();
+    //spent 2 hour to find any solution
+    //unable to automate canvas element using traditional approach
   }
 }

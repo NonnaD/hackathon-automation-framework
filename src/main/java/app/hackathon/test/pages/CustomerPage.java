@@ -18,7 +18,8 @@ public class CustomerPage extends PageDriver {
   private By transactionAmount = By.id("amount");
   private By debitTransaction = By.className("text-success");
   private By creditTransaction = By.className("text-danger");
-
+  private By compareExpenses = By.id("showExpensesChart");
+  private By chart = By.id("canvas");
 
   public CustomerPage(WebDriver webDriver) {
     super(webDriver);
@@ -32,6 +33,14 @@ public class CustomerPage extends PageDriver {
     clickElement(transactionAmount);
   }
 
+  public void clickCompareExpenses() {
+    clickElement(compareExpenses);
+  }
+
+  public Boolean isChartDisplayed() {
+    return isElementDisplayed(chart);
+  }
+
   /**
    * This function retrieves all transactions from the Amounts column
    * in order they present on the page
@@ -42,13 +51,11 @@ public class CustomerPage extends PageDriver {
     List<Double> allTransactions = new ArrayList<>();
     List<WebElement> debitTransactions = new ArrayList<>(getWebElementsList(debitTransaction));
     List<WebElement> creditTransactions = new ArrayList<>(getWebElementsList(creditTransaction));
-    Collections.reverse(debitTransactions);
-    Collections.reverse(creditTransactions);
-    debitTransactions.forEach((transaction) -> {
-      allTransactions.add(Double.parseDouble(transaction.getText().replaceAll(",","").substring(2, transaction.getText().length() - 4)));
-    });
     creditTransactions.forEach((transaction) -> {
       allTransactions.add((Double.parseDouble(transaction.getText().replaceAll(",","").replaceAll(" ", "").substring(0, transaction.getText().length() - 5))));
+    });
+    debitTransactions.forEach((transaction) -> {
+      allTransactions.add(Double.parseDouble(transaction.getText().replaceAll(",","").substring(2, transaction.getText().length() - 4)));
     });
     allTransactions.forEach(System.out::println);
     return allTransactions;
