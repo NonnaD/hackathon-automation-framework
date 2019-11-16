@@ -56,7 +56,12 @@ public class Base {
     return properties;
   }
 
-  public static WebDriver getWebDriver(){
+  public static WebDriver getWebDriver() {
     return webDriver;
+  }
+
+  public void appendShowAddParam() {
+    webDriver.navigate().to(String
+        .format("%s%s", webDriver.getCurrentUrl(), configProperties.getProperty("show.adds")));
   }
 }

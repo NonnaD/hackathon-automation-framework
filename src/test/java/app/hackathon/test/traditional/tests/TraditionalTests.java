@@ -13,6 +13,7 @@ import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
+import org.testng.asserts.SoftAssert;
 
 public class TraditionalTests extends Base {
 
@@ -20,6 +21,7 @@ public class TraditionalTests extends Base {
   private LoginPage loginPage;
   private CustomerPage customerPage;
   private Constants constants;
+  private SoftAssert softAssert;
 
   @BeforeMethod
   public void initializeAll() {
@@ -28,6 +30,7 @@ public class TraditionalTests extends Base {
     loginPage = new LoginPage(webDriver);
     customerPage = new CustomerPage(webDriver);
     constants = new Constants();
+    softAssert = new SoftAssert();
   }
 
   @AfterTest(alwaysRun = true)
@@ -55,24 +58,25 @@ public class TraditionalTests extends Base {
 
   @Test(description = "Login Page UI Elements Test")
   public void validateLoginPageUIElements() {
-    Assert.assertEquals(loginPage.getLoginFormHeader(), constants.getLoginFormHeader());
-    Assert.assertEquals(loginPage.getUsernameLabelText(), constants.getUsernameLabel());
-    Assert.assertEquals(loginPage.getPasswordLabelText(), constants.getPasswordLabel());
-    Assert.assertEquals(loginPage.getRememberMeLabelText(), constants.getRememberMeLabelText());
-    Assert.assertTrue(loginPage.isLogoImageDisplayed());
-    Assert.assertTrue(loginPage.isUsernameLogoDisplayed());
-    Assert.assertTrue(loginPage.isPasswordLogoDisplayed());
-    Assert.assertTrue(loginPage.isUsernameFieldDisplayed());
-    Assert.assertTrue(loginPage.isPasswordFieldDisplayed());
-    Assert.assertTrue(loginPage.isTwitterIconDisplayed());
-    Assert.assertTrue(loginPage.isFacebookIconDisplayed());
-    Assert.assertTrue(loginPage.isLinkedInIconDisplayed());
-    Assert.assertTrue(loginPage.isSignInDisplayed());
-    Assert.assertTrue(loginPage.isRememberMeCheckboxDisplayed());
+    softAssert.assertEquals(loginPage.getLoginFormHeader(), constants.getLoginFormHeader());
+    softAssert.assertEquals(loginPage.getUsernameLabelText(), constants.getUsernameLabel());
+    softAssert.assertEquals(loginPage.getPasswordLabelText(), constants.getPasswordLabel());
+    softAssert.assertEquals(loginPage.getRememberMeLabelText(), constants.getRememberMeLabelText());
+    softAssert.assertTrue(loginPage.isLogoImageDisplayed());
+    softAssert.assertTrue(loginPage.isUsernameLogoDisplayed());
+    softAssert.assertTrue(loginPage.isPasswordLogoDisplayed());
+    softAssert.assertTrue(loginPage.isUsernameFieldDisplayed());
+    softAssert.assertTrue(loginPage.isPasswordFieldDisplayed());
+    softAssert.assertTrue(loginPage.isTwitterIconDisplayed());
+    softAssert.assertTrue(loginPage.isFacebookIconDisplayed());
+    softAssert.assertTrue(loginPage.isLinkedInIconDisplayed());
+    softAssert.assertTrue(loginPage.isSignInDisplayed());
+    softAssert.assertTrue(loginPage.isRememberMeCheckboxDisplayed());
+    softAssert.assertAll();
   }
 
   @Test(description = "Login Page functional testing", dataProvider = "userInfoData")
-  public void verifyLogInFunctionality(String username, String password, String message) {
+  public void verifyLogInFunctionalityTest(String username, String password, String message) {
     loginPage.typeUsername(username);
     loginPage.typePassword(password);
     loginPage.clickSignInButton();
@@ -84,7 +88,7 @@ public class TraditionalTests extends Base {
   }
 
   @Test(description = "Verify table sort functionality")
-  public void verifyTableSortFunctionality() {
+  public void verifyTableSortFunctionalityTest() {
     loginPage.logIn("user","password");
     Assert.assertEquals(customerPage.getUserRole(), constants.getCustomer());
     customerPage.clickTransactionAmount();
@@ -99,8 +103,20 @@ public class TraditionalTests extends Base {
     loginPage.logIn("user","password");
     Assert.assertEquals(customerPage.getUserRole(), constants.getCustomer());
     customerPage.clickCompareExpenses();
-    customerPage.isChartDisplayed();
+    Assert.assertTrue(customerPage.isChartDisplayed());
     //spent 2 hour to find any solution
     //unable to automate canvas element using traditional approach
+  }
+
+  @Test(description = "Dynamic advertisement content test")
+  public void dynamicAddContentTest() {
+    appendShowAddParam();
+    loginPage.logIn("user","password");
+    softAssert.assertEquals(customerPage.getUserRole(), constants.getCustomer());
+    softAssert.assertTrue(customerPage.isFirstAddPresent());
+    softAssert.assertFalse(customerPage.isFirstAddChanged());
+    softAssert.assertTrue(customerPage.isSecondAddPresent());
+    softAssert.assertFalse(customerPage.isSecondAddChanged());
+    softAssert.assertAll();
   }
 }

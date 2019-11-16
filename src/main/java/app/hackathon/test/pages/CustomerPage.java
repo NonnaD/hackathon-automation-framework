@@ -20,6 +20,8 @@ public class CustomerPage extends PageDriver {
   private By creditTransaction = By.className("text-danger");
   private By compareExpenses = By.id("showExpensesChart");
   private By chart = By.id("canvas");
+  private By firstAdd = By.xpath("//div[@id='flashSale']/img");
+  private By secondAdd = By.xpath("//div[@id='flashSale2']/img");
 
   public CustomerPage(WebDriver webDriver) {
     super(webDriver);
@@ -39,6 +41,40 @@ public class CustomerPage extends PageDriver {
 
   public Boolean isChartDisplayed() {
     return isElementDisplayed(chart);
+  }
+
+  public Boolean isFirstAddPresent() {
+    return isElementDisplayed(firstAdd);
+  }
+
+  public Boolean isSecondAddPresent() {
+    return isElementDisplayed(secondAdd);
+  }
+
+  public Boolean isFirstAddChanged() {
+    boolean isFirstAddChanged = true;
+    if (isFirstAddPresent()) {
+      String srcAttributeValue = getElementAttribute(firstAdd, "src");
+      String styleAttributeValue = getElementAttribute(firstAdd, "style");
+      System.out.println("First add src attribute value equals: " + srcAttributeValue);
+      System.out.println("First add style attribute value equals: " + styleAttributeValue);
+      isFirstAddChanged = !srcAttributeValue.contains("img/flashSale.gif") || !styleAttributeValue
+          .equals("width: 129px; height: 100px;");
+    }
+    return isFirstAddChanged;
+  }
+
+  public Boolean isSecondAddChanged() {
+    boolean isFirstAddChanged = true;
+    if(isSecondAddPresent()) {
+      String srcAttributeValue = getElementAttribute(secondAdd, "src");
+      String styleAttributeValue = getElementAttribute(secondAdd, "style");
+      System.out.println("Second add src attribute value equals: " + srcAttributeValue);
+      System.out.println("Second add style attribute value equals: " + styleAttributeValue);
+      isFirstAddChanged = !srcAttributeValue.contains("img/flashSale2.gif") || !styleAttributeValue
+          .equals("width: 140px; height: 100px;");
+    }
+    return isFirstAddChanged;
   }
 
   /**

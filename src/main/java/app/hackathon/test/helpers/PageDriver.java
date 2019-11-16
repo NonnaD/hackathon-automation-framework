@@ -24,11 +24,25 @@ public class PageDriver {
   }
 
   public boolean isElementDisplayed(By by) {
-    return webDriver.findElement(by).isDisplayed();
+    boolean isElementDisplayed;
+    if(webDriver.findElements(by).size() > 0){
+      isElementDisplayed = webDriver.findElement(by).isDisplayed();
+    }else{
+      isElementDisplayed = false;
+    }
+    return isElementDisplayed;
+  }
+
+  public boolean isElementPresent(By by) {
+    return webDriver.findElements(by).size() > 0;
   }
 
   public String getNthElementText(By by, Integer elementNumber){
     return webDriver.findElements(by).get(elementNumber).getText();
+  }
+
+  public String getElementAttribute(By by, String attribute){
+    return webDriver.findElement(by).getAttribute(attribute);
   }
 
   public void typeValueInField(By by, String value){
