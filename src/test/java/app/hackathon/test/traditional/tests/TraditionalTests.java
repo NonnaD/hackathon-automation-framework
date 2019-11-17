@@ -4,6 +4,7 @@ import app.hackathon.test.data.Constants;
 import app.hackathon.test.helpers.Base;
 import app.hackathon.test.pages.CustomerPage;
 import app.hackathon.test.pages.LoginPage;
+import java.io.IOException;
 import java.util.Collections;
 import java.util.List;
 import org.openqa.selenium.WebDriver;
@@ -103,7 +104,14 @@ public class TraditionalTests extends Base {
     loginPage.logIn("user","password");
     Assert.assertEquals(customerPage.getUserRole(), constants.getCustomer());
     customerPage.clickCompareExpenses();
+    customerPage.getCanvasAsImage();
     Assert.assertTrue(customerPage.isChartDisplayed());
+    softAssert.assertFalse(customerPage.isChar2017_2018Changed());
+    customerPage.clickDataForNextYear();
+    customerPage.getCanvasAsImage();
+    softAssert.assertFalse(customerPage.isChar2019Changed());
+    softAssert.assertAll();
+
     //spent 2 hour to find any solution
     //unable to automate canvas element using traditional approach
   }

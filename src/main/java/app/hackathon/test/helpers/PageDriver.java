@@ -15,6 +15,10 @@ public class PageDriver {
     this.webDriver = webDriver;
   }
 
+  public WebDriver getWebDriver(){
+    return this.webDriver;
+  }
+
   public void browserMaximize () {
     webDriver.manage().window().maximize();
   }
