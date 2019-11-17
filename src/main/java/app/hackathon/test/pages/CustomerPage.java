@@ -50,7 +50,7 @@ public class CustomerPage extends PageDriver {
     clickElement(dataForNextYear);
   }
 
-  public BufferedImage getCanvasAsImage() {
+  public BufferedImage getCanvasAsImage(String filePath) {
     browserMaximize();
     BufferedImage image = null;
     byte[] imageByte;
@@ -65,7 +65,7 @@ public class CustomerPage extends PageDriver {
       ByteArrayInputStream bis = new ByteArrayInputStream(imageByte);
       image = ImageIO.read(bis);
       bis.close();
-      File fileImg = new File("./canvasImg/newChart2017-2018.png");
+      File fileImg = new File(filePath);
       ImageIO.write(image, "png", fileImg);
       System.out.println(image.createGraphics());
     } catch (Exception e) {
@@ -75,9 +75,20 @@ public class CustomerPage extends PageDriver {
     return image;
   }
 
+  public Boolean isChar2017_2018Changed(){
+    this.getCanvasAsImage("./canvasImg/newChart2017-2018.png");
+    String file1 = "./canvasImg/baseline2017-2018.png";
+    String file2 = "./canvasImg/newChart2017-2018.png";
+    return !isCharChanged(file1, file2);
+  }
 
-  /*String file1 = "./canvasImg/baseline2017-2018.png";
-  String file2 = "./canvasImg/newChart2017-2018.png";*/
+  public Boolean is2019DataAdded(){
+    this.getCanvasAsImage("./canvasImg/newChart2019.png");
+    String file1 = "./canvasImg/baseline2017-2018.png";
+    String file2 = "./canvasImg/newChart2019.png";
+    return !isCharChanged(file1, file2);
+  }
+
   public Boolean isCharChanged(String img1, String img2) {
     Boolean isImagesChanged = null;
     String file1 = img1;
@@ -105,7 +116,7 @@ public class CustomerPage extends PageDriver {
         image2Data = new int[width * height];
         image2Data = (int[]) grabImage2Pixels.getPixels();
       }
-      isImagesChanged = !java.util.Arrays.equals(image1Data, image2Data);
+      isImagesChanged = java.util.Arrays.equals(image1Data, image2Data);
       System.out.println("Pixels equal: "
           + java.util.Arrays.equals(image1Data, image2Data));
 

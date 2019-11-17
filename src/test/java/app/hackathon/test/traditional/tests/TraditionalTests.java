@@ -104,16 +104,12 @@ public class TraditionalTests extends Base {
     loginPage.logIn("user","password");
     Assert.assertEquals(customerPage.getUserRole(), constants.getCustomer());
     customerPage.clickCompareExpenses();
-    customerPage.getCanvasAsImage();
     Assert.assertTrue(customerPage.isChartDisplayed());
     softAssert.assertFalse(customerPage.isChar2017_2018Changed());
     customerPage.clickDataForNextYear();
-    customerPage.getCanvasAsImage();
-    softAssert.assertFalse(customerPage.isChar2019Changed());
+    Assert.assertTrue(customerPage.isChartDisplayed());
+    softAssert.assertTrue(customerPage.is2019DataAdded());
     softAssert.assertAll();
-
-    //spent 2 hour to find any solution
-    //unable to automate canvas element using traditional approach
   }
 
   @Test(description = "Dynamic advertisement content test")
