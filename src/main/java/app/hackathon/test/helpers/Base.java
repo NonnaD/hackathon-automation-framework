@@ -1,11 +1,15 @@
 package app.hackathon.test.helpers;
 
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Properties;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.apache.maven.surefire.shade.common.org.apache.commons.io.FileUtils;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebDriverException;
 import org.testng.annotations.AfterSuite;
@@ -63,5 +67,11 @@ public class Base {
   public void appendShowAddParam() {
     webDriver.navigate().to(String
         .format("%s%s", webDriver.getCurrentUrl(), configProperties.getProperty("show.adds")));
+  }
+
+  public void getScreenshot(String screenName) throws IOException {
+    File src = ((TakesScreenshot) getWebDriver()).getScreenshotAs(OutputType.FILE);
+   FileUtils
+       .copyFile(src, new File("./screenshots/" + screenName + ".png"));
   }
 }

@@ -1,22 +1,20 @@
 package app.hackathon.test.pages;
 
 import app.hackathon.test.helpers.PageDriver;
-import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
 import java.awt.image.PixelGrabber;
 import java.io.ByteArrayInputStream;
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.List;
 import javax.imageio.ImageIO;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import sun.misc.BASE64Decoder;
 
 public class CustomerPage extends PageDriver {
 
@@ -60,8 +58,7 @@ public class CustomerPage extends PageDriver {
         .executeScript("return arguments[0].toDataURL('image/png').substring(22);", canvas);
     String imgBase64 = base64.toString();
     try {
-      BASE64Decoder decoder = new BASE64Decoder();
-      imageByte = decoder.decodeBuffer(imgBase64);
+      imageByte = Base64.getDecoder().decode(imgBase64);
       ByteArrayInputStream bis = new ByteArrayInputStream(imageByte);
       image = ImageIO.read(bis);
       bis.close();

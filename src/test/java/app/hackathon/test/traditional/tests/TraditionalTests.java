@@ -4,7 +4,6 @@ import app.hackathon.test.data.Constants;
 import app.hackathon.test.helpers.Base;
 import app.hackathon.test.pages.CustomerPage;
 import app.hackathon.test.pages.LoginPage;
-import java.io.IOException;
 import java.util.Collections;
 import java.util.List;
 import org.openqa.selenium.WebDriver;
@@ -13,8 +12,11 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.DataProvider;
+import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
+
+@Listeners({app.hackathon.test.listeners.TestListener.class})
 
 public class TraditionalTests extends Base {
 
