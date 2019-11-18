@@ -13,7 +13,9 @@ import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebDriverException;
 import org.testng.annotations.AfterSuite;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeSuite;
+import org.testng.annotations.BeforeTest;
 
 public class Base {
 
@@ -22,7 +24,6 @@ public class Base {
   private EnvironmentSetUp setEnvironment;
   private Properties configProperties;
 
-  @BeforeSuite(alwaysRun = true)
   public void initAll() {
     this.configProperties = this.initProperties();
     setEnvironment = new EnvironmentSetUp(configProperties);
@@ -32,6 +33,7 @@ public class Base {
     webDriver = setEnvironment.getWebDriver();
     webDriver.get(this.configProperties.getProperty("app.url"));
     logger.info(String.format("Navigate to %s", this.configProperties.getProperty("app.url")));
+    webDriver.manage().window().maximize();
   }
 
   public void tearDown() {

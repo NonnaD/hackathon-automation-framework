@@ -49,7 +49,6 @@ public class CustomerPage extends PageDriver {
   }
 
   public BufferedImage getCanvasAsImage(String filePath) {
-    browserMaximize();
     BufferedImage image = null;
     byte[] imageByte;
     JavascriptExecutor js = (JavascriptExecutor) getWebDriver();

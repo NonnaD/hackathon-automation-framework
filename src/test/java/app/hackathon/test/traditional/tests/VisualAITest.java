@@ -19,7 +19,7 @@ import org.testng.asserts.SoftAssert;
 
 @Listeners({app.hackathon.test.listeners.TestListener.class})
 
-public class TraditionalTests extends Base {
+public class VisualAITest extends Base {
 
   private WebDriver webDriver;
   private LoginPage loginPage;

@@ -1,13 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
-<suite name="Test Suite" verbose="2">
+<suite name="All tests" thread-count="1">
   <listeners>
     <listener class-name="app.hackathon.test.listeners.Listener"/>
     <listener class-name="app.hackathon.test.listeners.TestListener"/>
   </listeners>
-  <test name="Traditional tests">
+  <test name="Traditional tests" preserve-order="true">
     <classes>
-      <class name="app.hackathon.test.traditional.tests.TraditionalTests" />
+      <class name="app.hackathon.test.traditional.tests.TraditionalTests"/>
+    </classes>
+  </test>
+  <test name="Visual tests" preserve-order="true">
+    <classes>
+      <class name="app.hackathon.test.traditional.tests.VisualAITest"/>
     </classes>
   </test>
 </suite>
