@@ -48,7 +48,7 @@ public class VisualAITest extends Base {
 
   @DataProvider
   public Object[][] userInfoData() {
-    Object[][] data = new Object[4][4];
+    Object[][] data = new Object[4][3];
     data[0][0] = "tester";
     data[0][1] = "";
     data[0][2] = "Login test - correct username and empty password";
@@ -70,6 +70,7 @@ public class VisualAITest extends Base {
     loginPage.clickLogoImg();
     validateWindow(MatchLevel.STRICT, true, "Login page bacground");
   }
+
   @Test(description = "Login Page functional testing", dataProvider = "userInfoData")
   public void verifyLogInFunctionalityTest(String username, String password, String testName) {
     loginPage.typeUsername(username);
@@ -96,9 +97,9 @@ public class VisualAITest extends Base {
     loginPage.logIn("user", "password");
     Assert.assertEquals(customerPage.getUserRole(), constants.getCustomer());
     customerPage.clickCompareExpenses();
-    validateElement(MatchLevel.CONTENT, customerPage.getChartElement(), true, "Chart 2017-1018");
+    validateWindow(MatchLevel.CONTENT,true, "Chart 2017-1018");
     customerPage.clickDataForNextYear();
-    validateElement(MatchLevel.CONTENT, customerPage.getChartElement(), true, "Chart 2019");
+    validateWindow(MatchLevel.CONTENT, true, "Chart 2019");
   }
 
   @Test(description = "Dynamic advertisement content test")

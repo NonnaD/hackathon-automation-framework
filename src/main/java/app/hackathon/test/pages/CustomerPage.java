@@ -41,10 +41,12 @@ public class CustomerPage extends PageDriver {
 
   public void clickCompareExpenses() {
     clickElement(compareExpenses);
+    hardPause(1000);
   }
 
   public void clickDataForNextYear() {
     clickElement(dataForNextYear);
+    hardPause(1000);
   }
 
   public BufferedImage getCanvasAsImage(String filePath) {
