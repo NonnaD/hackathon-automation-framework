@@ -45,50 +45,54 @@ public class TraditionalTests extends Base {
 
   @DataProvider
   public Object[][] userInfoData() {
-    Object[][] data = new Object[4][3];
+    Object[][] data = new Object[4][4];
     data[0][0] = "tester";
     data[0][1] = "";
     data[0][2] = "Password must be present";
+    data[0][3] = "Correct username and empty password";
     data[1][0] = "";
     data[1][1] = "automation";
     data[1][2] = "Username must be present";
+    data[1][3] = "Correct password and empty username";
     data[2][0] = "";
     data[2][1] = "";
     data[2][2] = "Both Username and Password must be present";
+    data[2][3] = "Empty password and empty username";
     data[3][0] = "tester";
     data[3][1] = "automation";
     data[3][2] = "";
+    data[3][3] = "Correct password and correct username";
     return data;
   }
 
   @Test(description = "Login Page UI Elements Test")
   public void validateLoginPageUIElements() {
-    softAssert.assertEquals(loginPage.getLoginFormHeader(), constants.getLoginFormHeader());
-    softAssert.assertEquals(loginPage.getUsernameLabelText(), constants.getUsernameLabel());
-    softAssert.assertEquals(loginPage.getPasswordLabelText(), constants.getPasswordLabel());
-    softAssert.assertEquals(loginPage.getRememberMeLabelText(), constants.getRememberMeLabelText());
-    softAssert.assertTrue(loginPage.isLogoImageDisplayed());
-    softAssert.assertTrue(loginPage.isUsernameLogoDisplayed());
-    softAssert.assertTrue(loginPage.isPasswordLogoDisplayed());
-    softAssert.assertTrue(loginPage.isUsernameFieldDisplayed());
-    softAssert.assertTrue(loginPage.isPasswordFieldDisplayed());
-    softAssert.assertTrue(loginPage.isTwitterIconDisplayed());
-    softAssert.assertTrue(loginPage.isFacebookIconDisplayed());
-    softAssert.assertTrue(loginPage.isLinkedInIconDisplayed());
-    softAssert.assertTrue(loginPage.isSignInDisplayed());
-    softAssert.assertTrue(loginPage.isRememberMeCheckboxDisplayed());
+    softAssert.assertEquals(loginPage.getLoginFormHeader(), constants.getLoginFormHeader(), "Login form header:");
+    softAssert.assertEquals(loginPage.getUsernameLabelText(), constants.getUsernameLabel(), "Username label text:");
+    softAssert.assertEquals(loginPage.getPasswordLabelText(), constants.getPasswordLabel(), "Password label text:");
+    softAssert.assertEquals(loginPage.getRememberMeLabelText(), constants.getRememberMeLabelText(), "Remember me label text:");
+    softAssert.assertTrue(loginPage.isLogoImageDisplayed(), "Logo image is:");
+    softAssert.assertTrue(loginPage.isUsernameLogoDisplayed(), "Username logo is:");
+    softAssert.assertTrue(loginPage.isPasswordLogoDisplayed(), "Password logo is:");
+    softAssert.assertTrue(loginPage.isUsernameFieldDisplayed(), "Username field is:");
+    softAssert.assertTrue(loginPage.isPasswordFieldDisplayed(), "Password filed is:");
+    softAssert.assertTrue(loginPage.isTwitterIconDisplayed(), "Twitter icon is:");
+    softAssert.assertTrue(loginPage.isFacebookIconDisplayed(), "Facebook icon is:");
+    softAssert.assertTrue(loginPage.isLinkedInIconDisplayed(), "Linked in icon is:");
+    softAssert.assertTrue(loginPage.isSignInDisplayed(), "Sign in is:");
+    softAssert.assertTrue(loginPage.isRememberMeCheckboxDisplayed(), "Remember me checkbox is:");
     softAssert.assertAll();
   }
 
   @Test(description = "Login Page functional testing", dataProvider = "userInfoData")
-  public void verifyLogInFunctionalityTest(String username, String password, String message) {
+  public void verifyLogInFunctionalityTest(String username, String password, String message, String testName) {
     loginPage.typeUsername(username);
     loginPage.typePassword(password);
     loginPage.clickSignInButton();
     if (!username.equals("") && !password.equals("")) {
-      Assert.assertEquals(customerPage.getUserRole(), constants.getCustomer());
+      Assert.assertEquals(customerPage.getUserRole(), constants.getCustomer(), testName);
     } else {
-      Assert.assertEquals(loginPage.getWarningMessage(), message);
+      Assert.assertEquals(loginPage.getWarningMessage(), message, testName);
     }
   }
 
@@ -109,7 +113,7 @@ public class TraditionalTests extends Base {
     Assert.assertEquals(customerPage.getUserRole(), constants.getCustomer());
     customerPage.clickCompareExpenses();
     Assert.assertTrue(customerPage.isChartDisplayed());
-    softAssert.assertFalse(customerPage.isChar2017_2018Changed(), "2017-2018 data has changed");
+    softAssert.assertFalse(customerPage.isChar2017_2018Changed(), "2017-2018 data");
     customerPage.clickDataForNextYear();
     Assert.assertTrue(customerPage.isChartDisplayed());
     softAssert.assertTrue(customerPage.is2019DataAdded(), "2019 data added");
@@ -121,10 +125,10 @@ public class TraditionalTests extends Base {
     appendShowAddParam();
     loginPage.logIn("user","password");
     softAssert.assertEquals(customerPage.getUserRole(), constants.getCustomer());
-    softAssert.assertTrue(customerPage.isFirstAddPresent());
-    softAssert.assertFalse(customerPage.isFirstAddChanged());
-    softAssert.assertTrue(customerPage.isSecondAddPresent());
-    softAssert.assertFalse(customerPage.isSecondAddChanged());
+    softAssert.assertTrue(customerPage.isFirstAddPresent(), "First add is present:");
+    softAssert.assertFalse(customerPage.isFirstAddChanged(), "First add is changed:");
+    softAssert.assertTrue(customerPage.isSecondAddPresent(), "Second add is present:");
+    softAssert.assertFalse(customerPage.isSecondAddChanged(), "Second add is changed:");
     softAssert.assertAll();
   }
 }
