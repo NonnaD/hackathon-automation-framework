@@ -109,10 +109,10 @@ public class TraditionalTests extends Base {
     Assert.assertEquals(customerPage.getUserRole(), constants.getCustomer());
     customerPage.clickCompareExpenses();
     Assert.assertTrue(customerPage.isChartDisplayed());
-    softAssert.assertFalse(customerPage.isChar2017_2018Changed());
+    softAssert.assertFalse(customerPage.isChar2017_2018Changed(), "2017-2018 data has changed");
     customerPage.clickDataForNextYear();
     Assert.assertTrue(customerPage.isChartDisplayed());
-    softAssert.assertTrue(customerPage.is2019DataAdded());
+    softAssert.assertTrue(customerPage.is2019DataAdded(), "2019 data added");
     softAssert.assertAll();
   }
 

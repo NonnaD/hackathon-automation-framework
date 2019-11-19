@@ -1,6 +1,9 @@
 package app.hackathon.test.helpers;
 
 
+import com.applitools.eyes.BatchInfo;
+import com.applitools.eyes.MatchLevel;
+import com.applitools.eyes.selenium.Eyes;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -8,11 +11,14 @@ import java.util.Properties;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.maven.surefire.shade.common.org.apache.commons.io.FileUtils;
+import org.openqa.selenium.By;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebDriverException;
+import org.openqa.selenium.WebElement;
 import org.testng.annotations.AfterSuite;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.BeforeTest;
@@ -23,6 +29,9 @@ public class Base {
   private static WebDriver webDriver;
   private EnvironmentSetUp setEnvironment;
   private Properties configProperties;
+  private Eyes eyes;
+  private static BatchInfo batchInfo;
+
 
   public void initAll() {
     this.configProperties = this.initProperties();
@@ -75,5 +84,64 @@ public class Base {
     File src = ((TakesScreenshot) getWebDriver()).getScreenshotAs(OutputType.FILE);
    FileUtils
        .copyFile(src, new File("./screenshots/" + screenName + ".png"));
+  }
+
+  public void initEyes(){
+    eyes = new Eyes();
+    eyes.setApiKey(configProperties.getProperty("applitools.api.key"));
+  }
+
+  public void validateWindow(MatchLevel matchLevel, Boolean forceFullScreen){
+    eyes.open(getWebDriver(), "Visual AI Tests",
+        Thread.currentThread().getStackTrace()[2].getMethodName());
+    eyes.setMatchLevel(matchLevel);
+    eyes.setForceFullPageScreenshot(forceFullScreen);
+    eyes.checkWindow();
+    eyes.close();
+  }
+
+  public void validateElement(MatchLevel matchLevel, By element, Boolean forceFullScreen){
+    eyes.open(getWebDriver(), "Visual AI Tests",  Thread.currentThread().getStackTrace()[2].getMethodName());
+    eyes.setMatchLevel(matchLevel);
+    eyes.checkElement(element);
+    eyes.setForceFullPageScreenshot(forceFullScreen);
+    eyes.close();
+  }
+
+  public void validateElement(MatchLevel matchLevel, String testName, By element, Boolean forceFullScreen){
+    eyes.open(getWebDriver(), "Visual AI Tests", testName);
+    eyes.setMatchLevel(matchLevel);
+    eyes.checkElement(element);
+    eyes.setForceFullPageScreenshot(forceFullScreen);
+    eyes.close();
+  }
+
+  public void validateRegion(MatchLevel matchLevel, By element, Boolean forceFullScreen){
+    eyes.open(getWebDriver(), "Visual AI Tests", Thread.currentThread().getStackTrace()[2].getMethodName());
+    eyes.setMatchLevel(matchLevel);
+    eyes.checkRegion(element);
+    eyes.setForceFullPageScreenshot(forceFullScreen);
+    eyes.close();
+  }
+
+  public void validateFrame(MatchLevel matchLevel, Integer frameIndex, Boolean forceFullScreen){
+    eyes.open(getWebDriver(), "Visual AI Tests", Thread.currentThread().getStackTrace()[2].getMethodName());
+    eyes.setMatchLevel(matchLevel);
+    eyes.checkFrame(frameIndex);
+    eyes.setForceFullPageScreenshot(forceFullScreen);
+    eyes.close();
+  }
+
+  public void eyesTearDown(){
+    eyes.abortIfNotClosed();
+  }
+
+  public void eyesSetBatch(){
+    eyes.setBatch(batchInfo);
+  }
+
+  @BeforeClass
+  public static void setBatchInfo(){
+    batchInfo = new BatchInfo("Hackathon");
   }
 }

@@ -1,9 +1,8 @@
 package app.hackathon.test.helpers;
 
-import app.hackathon.test.pages.LoginPage;
 import java.util.List;
 import org.openqa.selenium.By;
-import org.openqa.selenium.ElementClickInterceptedException;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
@@ -59,5 +58,10 @@ public class PageDriver {
 
   public List<WebElement> getWebElementsList(By by){
     return webDriver.findElements(by);
+  }
+
+  public void scrollInTo(int x, int y){
+    JavascriptExecutor js = (JavascriptExecutor) webDriver;
+    js.executeScript("window.scrollBy(" + x + ","+ y +")");
   }
 }

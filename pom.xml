@@ -138,8 +138,14 @@
     </dependency>
     <dependency>
       <groupId>com.applitools</groupId>
-      <artifactId>eyes-common-java3</artifactId>
-      <version>3.158.5</version>
+      <artifactId>eyes-selenium-java3</artifactId>
+      <version>RELEASE</version>
+      <exclusions>
+        <exclusion>
+          <groupId>org.seleniumhq.selenium</groupId>
+          <artifactId>selenium-java</artifactId>
+        </exclusion>
+      </exclusions>
     </dependency>
   </dependencies>
 

@@ -1,5 +1,6 @@
 package app.hackathon.test.helpers;
 
+import java.util.NoSuchElementException;
 import java.util.Properties;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -42,7 +43,14 @@ public class EnvironmentSetUp {
   }
 
   public void setChromeDriver() {
-    System.setProperty("webdriver.chrome.driver", "/Users/nonna/Desktop/MyJavaMac/chromedriver");
+    String os = this.configProperties.getProperty("operating.system");
+    if(os.equals("mac")) {
+      System.setProperty("webdriver.chrome.driver", "webdrivers/chromedriver");
+    }else if(os.equals("windows")) {
+      System.setProperty("webdriver.chrome.driver", "webdrivers/chromedriver.exe");
+    }else {
+      throw new NoSuchElementException("OS not implemented. Please set os to: 'mac' or 'windows' ");
+    }
     webDriver = new ChromeDriver();
     logger.info("Chrome driver is running on local machine");
   }

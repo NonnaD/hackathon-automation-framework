@@ -3,6 +3,7 @@ package app.hackathon.test.pages;
 import app.hackathon.test.helpers.PageDriver;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 
 public class LoginPage extends PageDriver{
 
@@ -20,13 +21,23 @@ public class LoginPage extends PageDriver{
   private By facebookIcon = By.xpath("//img[@src='img/social-icons/facebook.png']");
   private By linkedInIcon = By.xpath("//img[@src='img/social-icons/linkedin.png']");
   private By warningMessage = By.xpath("//div[contains(@id,'random_id_')]");
+  private By loginBox = By.xpath("//div[@class='auth-box-w']");
 
   public LoginPage(WebDriver webDriver) {
     super(webDriver);
   }
 
+  public void clickLogoImg(){
+    scrollInTo(0, 100);
+    clickElement(logoImage);
+  }
+
   public String getLoginFormHeader(){
     return getElementText(loginFormHeader);
+  }
+
+  public By getLogInBox() {
+    return loginBox;
   }
 
   public String getRememberMeLabelText(){
