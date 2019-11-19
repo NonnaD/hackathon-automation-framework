@@ -30,5 +30,6 @@ Run individually - go to TC file and click "Run test" button or click (Shift + f
 
 
         
-
+**Results**
+      <img src="readmeimages/Screen%20Shot%202019-11-19%20at%203.16.56%20PM.png" >   
 
