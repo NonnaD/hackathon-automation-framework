@@ -8,24 +8,23 @@ import org.testng.ITestListener;
 import org.testng.ITestResult;
 
 public class Listener implements ITestListener {
+
   private WebDriver webDriver;
   Base baseFunctions = new Base();
 
   @Override
   public void onTestStart(ITestResult result) {
-
   }
 
   @Override
   public void onTestSuccess(ITestResult result) {
-
   }
 
   @Override
   public void onTestFailure(ITestResult result) {
     String screenName = result.getName();
     try {
-      System.out.println("Test case failed :"+ result.getName());
+      System.out.println("Test case failed :" + result.getName());
       baseFunctions.getScreenshot(screenName);
       System.out.println("Screenshots has been taken");
     } catch (IOException e) {
@@ -36,7 +35,6 @@ public class Listener implements ITestListener {
 
   @Override
   public void onTestSkipped(ITestResult result) {
-
   }
 
   @Override
@@ -53,11 +51,9 @@ public class Listener implements ITestListener {
 
   @Override
   public void onStart(ITestContext context) {
-
   }
 
   @Override
   public void onFinish(ITestContext context) {
-
   }
 }

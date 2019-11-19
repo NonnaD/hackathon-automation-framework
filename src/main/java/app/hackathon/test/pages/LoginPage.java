@@ -5,7 +5,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
-public class LoginPage extends PageDriver{
+public class LoginPage extends PageDriver {
 
   private By loginFormHeader = By.className("auth-header");
   private By labelElement = By.xpath("//div[@class='form-group']/label");
@@ -27,12 +27,12 @@ public class LoginPage extends PageDriver{
     super(webDriver);
   }
 
-  public void clickLogoImg(){
+  public void clickLogoImg() {
     scrollInTo(0, 100);
     clickElement(logoImage);
   }
 
-  public String getLoginFormHeader(){
+  public String getLoginFormHeader() {
     return getElementText(loginFormHeader);
   }
 
@@ -40,75 +40,75 @@ public class LoginPage extends PageDriver{
     return loginBox;
   }
 
-  public String getRememberMeLabelText(){
+  public String getRememberMeLabelText() {
     return getElementText(rememberMeLabel);
   }
 
-  public String getUsernameLabelText(){
+  public String getUsernameLabelText() {
     return getNthElementText(labelElement, 0);
   }
 
-  public String getPasswordLabelText(){
+  public String getPasswordLabelText() {
     return getNthElementText(labelElement, 1);
   }
 
-  public Boolean isLogoImageDisplayed(){
+  public Boolean isLogoImageDisplayed() {
     return isElementDisplayed(logoImage);
   }
 
-  public Boolean isUsernameLogoDisplayed(){
+  public Boolean isUsernameLogoDisplayed() {
     return isElementDisplayed(usernameLogo);
   }
 
-  public Boolean isPasswordLogoDisplayed(){
+  public Boolean isPasswordLogoDisplayed() {
     return isElementDisplayed(passwordLogo);
   }
 
-  public Boolean isUsernameFieldDisplayed(){
+  public Boolean isUsernameFieldDisplayed() {
     return isElementDisplayed(usernameField);
   }
 
-  public Boolean isPasswordFieldDisplayed(){
+  public Boolean isPasswordFieldDisplayed() {
     return isElementDisplayed(passwordField);
   }
 
-  public Boolean isTwitterIconDisplayed(){
+  public Boolean isTwitterIconDisplayed() {
     return isElementDisplayed(twitterIcon);
   }
 
-  public Boolean isFacebookIconDisplayed(){
+  public Boolean isFacebookIconDisplayed() {
     return isElementDisplayed(facebookIcon);
   }
 
-  public Boolean isLinkedInIconDisplayed(){
+  public Boolean isLinkedInIconDisplayed() {
     return isElementDisplayed(linkedInIcon);
   }
 
-  public Boolean isRememberMeCheckboxDisplayed(){
+  public Boolean isRememberMeCheckboxDisplayed() {
     return isElementDisplayed(rememberMeCheckBox);
   }
 
-  public Boolean isSignInDisplayed(){
+  public Boolean isSignInDisplayed() {
     return isElementDisplayed(signInButton);
   }
 
-  public void typeUsername(String value){
+  public void typeUsername(String value) {
     typeValueInField(usernameField, value);
   }
 
-  public void typePassword(String value){
+  public void typePassword(String value) {
     typeValueInField(passwordField, value);
   }
 
-  public String getWarningMessage(){
+  public String getWarningMessage() {
     return getElementText(warningMessage);
   }
 
-  public void clickSignInButton(){
+  public void clickSignInButton() {
     clickElement(signInButton);
   }
 
-  public void logIn(String username, String password){
+  public void logIn(String username, String password) {
     this.typeUsername(username);
     this.typePassword(password);
     this.clickSignInButton();

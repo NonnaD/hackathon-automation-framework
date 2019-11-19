@@ -70,6 +70,7 @@ public class TestListener extends Base implements ITestListener {
 
   @Override
   public void onTestFailedButWithinSuccessPercentage(ITestResult iTestResult) {
-    System.out.println("Test failed but it is in defined success ratio " + getTestMethodName(iTestResult));
+    System.out.println(
+        "Test failed but it is in defined success ratio " + getTestMethodName(iTestResult));
   }
 }

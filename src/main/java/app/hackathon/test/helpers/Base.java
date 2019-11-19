@@ -3,6 +3,7 @@ package app.hackathon.test.helpers;
 
 import com.applitools.eyes.BatchInfo;
 import com.applitools.eyes.MatchLevel;
+import com.applitools.eyes.RectangleSize;
 import com.applitools.eyes.selenium.Eyes;
 import java.io.File;
 import java.io.FileInputStream;
@@ -16,12 +17,7 @@ import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebDriverException;
-import org.openqa.selenium.WebElement;
-import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeClass;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.BeforeSuite;
-import org.testng.annotations.BeforeTest;
 
 public class Base {
 
@@ -82,66 +78,73 @@ public class Base {
 
   public void getScreenshot(String screenName) throws IOException {
     File src = ((TakesScreenshot) getWebDriver()).getScreenshotAs(OutputType.FILE);
-   FileUtils
-       .copyFile(src, new File("./screenshots/" + screenName + ".png"));
+    FileUtils
+        .copyFile(src, new File("./screenshots/" + screenName + ".png"));
   }
 
-  public void initEyes(){
+  public void initEyes() {
     eyes = new Eyes();
     eyes.setApiKey(configProperties.getProperty("applitools.api.key"));
   }
 
-  public void validateWindow(MatchLevel matchLevel, Boolean forceFullScreen){
+  public void validateWindow(MatchLevel matchLevel, Boolean forceFullScreen, String tag) {
     eyes.open(getWebDriver(), "Visual AI Tests",
-        Thread.currentThread().getStackTrace()[2].getMethodName());
+        Thread.currentThread().getStackTrace()[2].getMethodName()/*, new RectangleSize(1440, 677)*/);
     eyes.setMatchLevel(matchLevel);
     eyes.setForceFullPageScreenshot(forceFullScreen);
     eyes.checkWindow();
     eyes.close();
   }
 
-  public void validateElement(MatchLevel matchLevel, By element, Boolean forceFullScreen){
-    eyes.open(getWebDriver(), "Visual AI Tests",  Thread.currentThread().getStackTrace()[2].getMethodName());
+  public void validateElement(MatchLevel matchLevel, By element, Boolean forceFullScreen,
+      String tag) {
+    eyes.open(getWebDriver(), "Visual AI Tests", Thread.currentThread().getStackTrace()[2]
+        .getMethodName()/*, new RectangleSize(1440, 677)*/);
     eyes.setMatchLevel(matchLevel);
-    eyes.checkElement(element);
+    eyes.checkElement(element, tag);
     eyes.setForceFullPageScreenshot(forceFullScreen);
     eyes.close();
   }
 
-  public void validateElement(MatchLevel matchLevel, String testName, By element, Boolean forceFullScreen){
-    eyes.open(getWebDriver(), "Visual AI Tests", testName);
+  public void validateElement(MatchLevel matchLevel, String testName, By element,
+      Boolean forceFullScreen, String tag) {
+    eyes.open(getWebDriver(), "Visual AI Tests", testName/*, new RectangleSize(1440, 677)*/);
     eyes.setMatchLevel(matchLevel);
-    eyes.checkElement(element);
+    eyes.checkElement(element, tag);
     eyes.setForceFullPageScreenshot(forceFullScreen);
     eyes.close();
   }
 
-  public void validateRegion(MatchLevel matchLevel, By element, Boolean forceFullScreen){
-    eyes.open(getWebDriver(), "Visual AI Tests", Thread.currentThread().getStackTrace()[2].getMethodName());
+  public void validateRegion(MatchLevel matchLevel, By element, Boolean forceFullScreen,
+      String tag) {
+    eyes.open(getWebDriver(), "Visual AI Tests", Thread.currentThread().getStackTrace()[2]
+        .getMethodName()/*, new RectangleSize(1440, 677)*/);
     eyes.setMatchLevel(matchLevel);
-    eyes.checkRegion(element);
+    eyes.checkRegion(element, tag);
     eyes.setForceFullPageScreenshot(forceFullScreen);
     eyes.close();
   }
 
-  public void validateFrame(MatchLevel matchLevel, Integer frameIndex, Boolean forceFullScreen){
-    eyes.open(getWebDriver(), "Visual AI Tests", Thread.currentThread().getStackTrace()[2].getMethodName());
+  public void validateFrame(MatchLevel matchLevel, Integer frameIndex, Boolean forceFullScreen,
+      String tag) {
+    eyes.open(getWebDriver(), "Visual AI Tests", Thread.currentThread().getStackTrace()[2]
+        .getMethodName()/*, new RectangleSize(1440, 677)*/);
     eyes.setMatchLevel(matchLevel);
-    eyes.checkFrame(frameIndex);
+    eyes.checkFrame(frameIndex, tag);
     eyes.setForceFullPageScreenshot(forceFullScreen);
     eyes.close();
   }
 
-  public void eyesTearDown(){
+  public void eyesTearDown() {
     eyes.abortIfNotClosed();
   }
 
-  public void eyesSetBatch(){
+  public void eyesSetBatch() {
     eyes.setBatch(batchInfo);
   }
 
   @BeforeClass
-  public static void setBatchInfo(){
+  public static void setBatchInfo() {
     batchInfo = new BatchInfo("Hackathon");
   }
 }

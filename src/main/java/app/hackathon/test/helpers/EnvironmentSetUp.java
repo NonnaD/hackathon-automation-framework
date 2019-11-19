@@ -44,11 +44,11 @@ public class EnvironmentSetUp {
 
   public void setChromeDriver() {
     String os = this.configProperties.getProperty("operating.system");
-    if(os.equals("mac")) {
+    if (os.equals("mac")) {
       System.setProperty("webdriver.chrome.driver", "webdrivers/chromedriver");
-    }else if(os.equals("windows")) {
+    } else if (os.equals("windows")) {
       System.setProperty("webdriver.chrome.driver", "webdrivers/chromedriver.exe");
-    }else {
+    } else {
       throw new NoSuchElementException("OS not implemented. Please set os to: 'mac' or 'windows' ");
     }
     webDriver = new ChromeDriver();

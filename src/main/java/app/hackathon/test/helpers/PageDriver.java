@@ -1,6 +1,7 @@
 package app.hackathon.test.helpers;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
@@ -14,11 +15,11 @@ public class PageDriver {
     this.webDriver = webDriver;
   }
 
-  public WebDriver getWebDriver(){
+  public WebDriver getWebDriver() {
     return this.webDriver;
   }
 
-  public void browserMaximize () {
+  public void browserMaximize() {
     webDriver.manage().window().maximize();
   }
 
@@ -28,9 +29,9 @@ public class PageDriver {
 
   public boolean isElementDisplayed(By by) {
     boolean isElementDisplayed;
-    if(webDriver.findElements(by).size() > 0){
+    if (webDriver.findElements(by).size() > 0) {
       isElementDisplayed = webDriver.findElement(by).isDisplayed();
-    }else{
+    } else {
       isElementDisplayed = false;
     }
     return isElementDisplayed;
@@ -40,28 +41,36 @@ public class PageDriver {
     return webDriver.findElements(by).size() > 0;
   }
 
-  public String getNthElementText(By by, Integer elementNumber){
+  public String getNthElementText(By by, Integer elementNumber) {
     return webDriver.findElements(by).get(elementNumber).getText();
   }
 
-  public String getElementAttribute(By by, String attribute){
+  public String getElementAttribute(By by, String attribute) {
     return webDriver.findElement(by).getAttribute(attribute);
   }
 
-  public void typeValueInField(By by, String value){
+  public void typeValueInField(By by, String value) {
     webDriver.findElement(by).sendKeys(value);
   }
 
-  public void clickElement(By by){
+  public void clickElement(By by) {
     webDriver.findElement(by).click();
   }
 
-  public List<WebElement> getWebElementsList(By by){
+  public List<WebElement> getWebElementsList(By by) {
     return webDriver.findElements(by);
   }
 
-  public void scrollInTo(int x, int y){
+  public void scrollInTo(int x, int y) {
     JavascriptExecutor js = (JavascriptExecutor) webDriver;
-    js.executeScript("window.scrollBy(" + x + ","+ y +")");
+    js.executeScript("window.scrollBy(" + x + "," + y + ")");
+  }
+
+  public void hardPause(int timeOut) {
+    try {
+      Thread.sleep(timeOut);
+    } catch (InterruptedException e) {
+      e.printStackTrace();
+    }
   }
 }

@@ -6,6 +6,7 @@ import app.hackathon.test.pages.CustomerPage;
 import app.hackathon.test.pages.LoginPage;
 import java.util.Collections;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
@@ -67,10 +68,14 @@ public class TraditionalTests extends Base {
 
   @Test(description = "Login Page UI Elements Test")
   public void validateLoginPageUIElements() {
-    softAssert.assertEquals(loginPage.getLoginFormHeader(), constants.getLoginFormHeader(), "Login form header:");
-    softAssert.assertEquals(loginPage.getUsernameLabelText(), constants.getUsernameLabel(), "Username label text:");
-    softAssert.assertEquals(loginPage.getPasswordLabelText(), constants.getPasswordLabel(), "Password label text:");
-    softAssert.assertEquals(loginPage.getRememberMeLabelText(), constants.getRememberMeLabelText(), "Remember me label text:");
+    softAssert.assertEquals(loginPage.getLoginFormHeader(), constants.getLoginFormHeader(),
+        "Login form header:");
+    softAssert.assertEquals(loginPage.getUsernameLabelText(), constants.getUsernameLabel(),
+        "Username label text:");
+    softAssert.assertEquals(loginPage.getPasswordLabelText(), constants.getPasswordLabel(),
+        "Password label text:");
+    softAssert.assertEquals(loginPage.getRememberMeLabelText(), constants.getRememberMeLabelText(),
+        "Remember me label text:");
     softAssert.assertTrue(loginPage.isLogoImageDisplayed(), "Logo image is:");
     softAssert.assertTrue(loginPage.isUsernameLogoDisplayed(), "Username logo is:");
     softAssert.assertTrue(loginPage.isPasswordLogoDisplayed(), "Password logo is:");
@@ -85,7 +90,8 @@ public class TraditionalTests extends Base {
   }
 
   @Test(description = "Login Page functional testing", dataProvider = "userInfoData")
-  public void verifyLogInFunctionalityTest(String username, String password, String message, String testName) {
+  public void verifyLogInFunctionalityTest(String username, String password, String message,
+      String testName) {
     loginPage.typeUsername(username);
     loginPage.typePassword(password);
     loginPage.clickSignInButton();
@@ -98,7 +104,7 @@ public class TraditionalTests extends Base {
 
   @Test(description = "Verify table sort functionality")
   public void verifyTableSortFunctionalityTest() {
-    loginPage.logIn("user","password");
+    loginPage.logIn("user", "password");
     Assert.assertEquals(customerPage.getUserRole(), constants.getCustomer());
     customerPage.clickTransactionAmount();
     List<Double> actualTransactions = customerPage.getAllTransactions();
@@ -109,7 +115,7 @@ public class TraditionalTests extends Base {
 
   @Test(description = "Validate the bar chart and representing that data")
   public void canvasChartTest() {
-    loginPage.logIn("user","password");
+    loginPage.logIn("user", "password");
     Assert.assertEquals(customerPage.getUserRole(), constants.getCustomer());
     customerPage.clickCompareExpenses();
     Assert.assertTrue(customerPage.isChartDisplayed());
@@ -123,7 +129,7 @@ public class TraditionalTests extends Base {
   @Test(description = "Dynamic advertisement content test")
   public void dynamicAddContentTest() {
     appendShowAddParam();
-    loginPage.logIn("user","password");
+    loginPage.logIn("user", "password");
     softAssert.assertEquals(customerPage.getUserRole(), constants.getCustomer());
     softAssert.assertTrue(customerPage.isFirstAddPresent(), "First add is present:");
     softAssert.assertFalse(customerPage.isFirstAddChanged(), "First add is changed:");

@@ -10,6 +10,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 import javax.imageio.ImageIO;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
@@ -81,14 +82,16 @@ public class CustomerPage extends PageDriver {
     return financialOverview;
   }
 
-  public Boolean isChar2017_2018Changed(){
+  public Boolean isChar2017_2018Changed() {
+    hardPause(3000);
     this.getCanvasAsImage("./canvasImg/newChart2017-2018.png");
     String file1 = "./canvasImg/baseline2017-2018.png";
     String file2 = "./canvasImg/newChart2017-2018.png";
     return !isCharChanged(file1, file2);
   }
 
-  public Boolean is2019DataAdded(){
+  public Boolean is2019DataAdded() {
+    hardPause(3000);
     this.getCanvasAsImage("./canvasImg/newChart2019.png");
     String file1 = "./canvasImg/baseline2017-2018.png";
     String file2 = "./canvasImg/newChart2019.png";

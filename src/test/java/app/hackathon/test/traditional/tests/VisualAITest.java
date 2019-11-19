@@ -6,15 +6,10 @@ import app.hackathon.test.pages.CustomerPage;
 import app.hackathon.test.pages.LoginPage;
 import com.applitools.eyes.MatchLevel;
 import com.applitools.eyes.selenium.Eyes;
-import java.util.Collections;
-import java.util.List;
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
-import org.testng.annotations.AfterTest;
-import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.BeforeTest;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
@@ -53,7 +48,7 @@ public class VisualAITest extends Base {
 
   @DataProvider
   public Object[][] userInfoData() {
-    Object[][] data = new Object[4][3];
+    Object[][] data = new Object[4][4];
     data[0][0] = "tester";
     data[0][1] = "";
     data[0][2] = "Login test - correct username and empty password";
@@ -71,20 +66,20 @@ public class VisualAITest extends Base {
 
   @Test(description = "Login Page UI Elements Test")
   public void validateLoginPageUIElements() {
-    validateWindow(MatchLevel.STRICT, true);
+    validateWindow(MatchLevel.STRICT, true, "Login module elements");
     loginPage.clickLogoImg();
-    validateWindow(MatchLevel.STRICT, true);
+    validateWindow(MatchLevel.STRICT, true, "Login page bacground");
   }
-
   @Test(description = "Login Page functional testing", dataProvider = "userInfoData")
   public void verifyLogInFunctionalityTest(String username, String password, String testName) {
     loginPage.typeUsername(username);
     loginPage.typePassword(password);
     loginPage.clickSignInButton();
     if (!username.equals("") && !password.equals("")) {
-      validateWindow(MatchLevel.LAYOUT, false);
+      validateWindow(MatchLevel.LAYOUT, false, "Login page module");
     } else {
-      validateElement(MatchLevel.CONTENT, testName, loginPage.getLogInBox(), true);
+      validateElement(MatchLevel.CONTENT, testName, loginPage.getLogInBox(), true,
+          "Login page module");
     }
   }
 
@@ -93,7 +88,7 @@ public class VisualAITest extends Base {
     loginPage.logIn("user", "password");
     Assert.assertEquals(customerPage.getUserRole(), constants.getCustomer());
     customerPage.clickTransactionAmount();
-    validateWindow(MatchLevel.STRICT, true);
+    validateWindow(MatchLevel.STRICT, true, "Amount module ");
   }
 
   @Test(description = "Validate the bar chart and representing that data")
@@ -101,9 +96,9 @@ public class VisualAITest extends Base {
     loginPage.logIn("user", "password");
     Assert.assertEquals(customerPage.getUserRole(), constants.getCustomer());
     customerPage.clickCompareExpenses();
-    validateElement(MatchLevel.CONTENT, customerPage.getChartElement(), true);
+    validateElement(MatchLevel.CONTENT, customerPage.getChartElement(), true, "Chart 2017-1018");
     customerPage.clickDataForNextYear();
-    validateElement(MatchLevel.CONTENT, customerPage.getChartElement(), true);
+    validateElement(MatchLevel.CONTENT, customerPage.getChartElement(), true, "Chart 2019");
   }
 
   @Test(description = "Dynamic advertisement content test")
@@ -111,6 +106,7 @@ public class VisualAITest extends Base {
     appendShowAddParam();
     loginPage.logIn("user", "password");
     softAssert.assertEquals(customerPage.getUserRole(), constants.getCustomer());
-    validateRegion(MatchLevel.LAYOUT, customerPage.getFinancialOverview(), true);
+    validateRegion(MatchLevel.LAYOUT, customerPage.getFinancialOverview(), true,
+        "Dynamic advertisement area");
   }
 }
