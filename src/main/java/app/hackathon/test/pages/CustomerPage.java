@@ -27,14 +27,12 @@ public class CustomerPage extends PageDriver {
   private By firstAdd = By.xpath("//div[@id='flashSale']/img");
   private By secondAdd = By.xpath("//div[@id='flashSale2']/img");
   private By dataForNextYear = By.id("addDataset");
+  private By financialOverview = By.xpath("//div[@class='element-balances']");
 
   public CustomerPage(WebDriver webDriver) {
     super(webDriver);
   }
 
-  public String getUserRole() {
-    return getElementText(userRole);
-  }
 
   public void clickTransactionAmount() {
     clickElement(transactionAmount);
@@ -69,6 +67,18 @@ public class CustomerPage extends PageDriver {
     }
 
     return image;
+  }
+
+  public String getUserRole() {
+    return getElementText(userRole);
+  }
+
+  public By getChartElement() {
+    return chart;
+  }
+
+  public By getFinancialOverview() {
+    return financialOverview;
   }
 
   public Boolean isChar2017_2018Changed(){
